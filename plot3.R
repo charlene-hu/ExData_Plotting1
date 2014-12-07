@@ -15,16 +15,16 @@ df <- read.csv.sql(paste0(directory, '/household_power_consumption.txt'), sql= '
 df[df == '?'] <- NA
 df$DateTime = strptime(paste(df$Date, df$Time), format="%d/%m/%Y %H:%M:%S")
 
-writeLines("ploting in standard output device...")
+writeLines("ploting...")
+png(paste0(directory, '/plot3.png'))
 par(mfrow=c(1,1))
 with(df, plot(DateTime, Sub_metering_1, type='l', xlab='',ylab='Energy sub metering'))
 with(df, lines(DateTime, Sub_metering_2, col='red'))
 with(df, lines(DateTime, Sub_metering_3, col='blue'))
 legend("topright", col = c("black","blue", "red"),
-       lwd=2, lty=c(1,1,1),
+       lwd=2, lty=c(1,1,1), cex = .6,
        legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
 
-writeLines("create png file in working directory...")
-dev.copy(png, paste0(directory, '/plot3.png'))
 dev.off()
 closeAllConnections() 
+writeLines("plot3.png created in working directory.")

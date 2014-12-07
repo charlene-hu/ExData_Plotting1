@@ -15,7 +15,8 @@ df <- read.csv.sql(paste0(directory, '/household_power_consumption.txt'), sql= '
 df[df == '?'] <- NA
 df$DateTime = strptime(paste(df$Date, df$Time), format="%d/%m/%Y %H:%M:%S")
 
-writeLines("ploting in standard output device...")
+writeLines("ploting...")
+png(paste0(directory, '/plot4.png'))
 par(mfrow = c(2,2))
 with(df,{
   plot(DateTime, Global_active_power, type='l', xlab='',ylab='Global Active Power')
@@ -24,12 +25,11 @@ with(df,{
   lines(DateTime, Sub_metering_2, col='red')
   lines(DateTime, Sub_metering_3, col='blue')
   legend("topright", col = c("black","blue", "red"),
-         lwd=2, lty=c(1,1,1),  cex = .8, bty = 'n',
+         lwd=2, lty=c(1,1,1),  cex = .6, bty = 'n',inset=0.05,
          legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
   plot(DateTime, Global_reactive_power, type='l', xlab='datetime')
 })
 
-writeLines("create png file in working directory...")
-dev.copy(png, paste0(directory, '/plot4.png'))
 dev.off()
 closeAllConnections() 
+writeLines("plot4.png created in working directory.")
