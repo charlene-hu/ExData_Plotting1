@@ -3,6 +3,7 @@ setwd(wd)
 writeLines("setting directory...")
 directory <- getwd()
 
+#install sqlpdf when it is not already installed
 "xtable" %in% rownames(installed.packages('sqlpdf'))
 
 writeLines("installing library...")
